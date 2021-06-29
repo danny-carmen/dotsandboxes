@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <title>Dot Box Game</title>
+      <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div class="scoreboard">
+      <div class="player-score">
+        <p>Player 1</p>
+        <p id="player1-score">0</p>
+      </div>
+      <div class="center">
+        <p id="turn-display">Player 1 Turn</p>
+        <button id="confirm-button" onclick="confirmSelection()">Confirm</button>
+      </div>
+      <div class="player-score">
+        <p>Player 2</p>
+        <p id="player2-score">0</p>
+
+      </div>
+      
+    </div>
+    
+      <canvas height="2000" width="2000" id="canvas">
+
+      </canvas>
+    <script src="app.js"></script>
+    <noscript>You need to enable JavaScript to view the full site.</noscript>
+  </body>
