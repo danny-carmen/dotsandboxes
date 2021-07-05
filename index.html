@@ -1,30 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-      <title>Dot Box Game</title>
-      <link rel="stylesheet" href="main.css">
-  </head>
-  <body>
-    <div class="scoreboard">
-      <div class="player-score">
-        <p>Player 1</p>
-        <p id="player1-score">0</p>
+
+<head>
+  <title>Dot Box Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="text-screen">
+      <div class="start-screen">
+        <h1 class="new-game" onclick="newGameClick()">
+          NEW GAME
+        </h1>
+        <h1 onclick="instructionsClick()">
+          INSTRUCTIONS
+        </h1>
       </div>
-      <div class="center">
-        <p id="turn-display">Player 1 Turn</p>
-        <button id="confirm-button" onclick="confirmSelection()">Confirm</button>
-      </div>
-      <div class="player-score">
-        <p>Player 2</p>
-        <p id="player2-score">0</p>
+      <div class="instruction-screen">
+        <h1>INSTRUCTIONS</h1>
+        <p>Instructons go here</p>
 
       </div>
-      
+      <div class="setup-screen">
+        <h1>Setup stuff here</h1>
+
+      </div>
+      <div class="win-screen">
+        <h1><span class="winning-player"></span> wins</h1>
+        <div class="final-score">
+          <div class="player-1-container">
+            <div class="player-1-name"></div>
+            <div class="player-1-score"></div>
+          </div>
+          <div class="hyphen">-</div>
+          <div class="player-2-container">
+            <div class="player-2-name"></div>
+            <div class="player-2-score"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    
+    <div class="game-board">
+      <div class="scoreboard">
+        <div class="player-score">
+          <p>Player 1</p>
+          <p id="player1-score">0</p>
+        </div>
+        <div class="center">
+          <p id="turn-display">Player 1 Turn</p>
+
+        </div>
+        <div class="player-score">
+          <p>Player 2</p>
+          <p id="player2-score">0</p>
+
+        </div>
+
+      </div>
+
       <canvas height="2000" width="2000" id="canvas">
 
       </canvas>
-    <script src="app.js"></script>
-    <noscript>You need to enable JavaScript to view the full site.</noscript>
-  </body>
+    </div>
+  </div>
+  <script src="app.js"></script>
+  <noscript>You need to enable JavaScript to view the full site.</noscript>
+</body>

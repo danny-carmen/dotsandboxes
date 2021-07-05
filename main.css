@@ -1,3 +1,8 @@
+html{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
 canvas{
     border: 1px solid black;
     box-shadow: black ;
@@ -8,4 +13,21 @@ canvas{
     justify-content: space-between;
     align-items: center;
     width: 100vw;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.text-screen{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+.start-screen{
+    order: 1;
 }
