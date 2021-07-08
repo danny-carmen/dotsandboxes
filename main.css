@@ -1,11 +1,19 @@
+
+
 html{
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
 }
 
+h1{
+    font-size: 60px;
+    cursor: pointer;
+}
+
 canvas{
     border: 1px solid black;
     box-shadow: black ;
+    
 }
 
 .scoreboard{
@@ -25,9 +33,33 @@ canvas{
     position: absolute;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     
 }
 
 .start-screen{
     order: 1;
+    display: none;
+}
+
+.text-container{
+    background-color: rgba(255, 255, 255, .75);
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+.instruction-screen{
+    display: none;
+}
+
+.setup-screen{
+    display: none;
+}
+
+.win-screen{
+    display: none;
 }
