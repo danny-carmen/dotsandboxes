@@ -42,14 +42,14 @@ canvas{
 
 .start-screen{
     order: 1;
-    display: none;
+    display: initial;
 }
 
 .text-container{
     background-color: rgba(255, 255, 255, .75);
     width: 100vw;
     height: 100vh;
-    display: none;
+    display: initial;
 }
 
 .instruction-screen{
@@ -62,4 +62,12 @@ canvas{
 
 .win-screen{
     display: none;
+}
+
+.fade-out{
+
+}
+
+.fade-in{
+    
 }

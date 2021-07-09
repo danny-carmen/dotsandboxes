@@ -10,22 +10,23 @@
 <body>
   <div class="container">
     <div class="text-screen text-container">
-      <div class="start-screen text-screen">
-        <h1 class="new-game" onclick="newGameClick()">
+      <div class="start-screen text-screen" id="start-screen">
+        <h1 class="new-game" onclick="changeTextScreen('setup-screen')">
           NEW GAME
         </h1>
-        <h1 onclick="instructionsClick()">
+        <h1 onclick="changeTextScreen('instruction-screen')">
           INSTRUCTIONS
         </h1>
       </div>
-      <div class="instruction-screen text-screen">
+      <div class="instruction-screen text-screen" id="instruction-screen">
         <h1>INSTRUCTIONS</h1>
         <p>Instructons go here</p>
+        <h1 onclick="changeTextScreen('start-screen')">Return</h1>
 
       </div>
-      <div class="setup-screen text-screen">
+      <div class="setup-screen text-screen" id="setup-screen">
         <h1>Setup stuff here</h1>
-
+        <h1  onclick="startGame()">START GAME</h1>
       </div>
       <div class="win-screen text-screen">
         <h1><span class="winning-player"></span> wins</h1>

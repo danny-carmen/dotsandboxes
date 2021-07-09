@@ -33,15 +33,15 @@ var activePlayerColor = player1Color;
 
 canvas.addEventListener("mousedown", doMouseDown, false);
 
-function selectionAnimation(x, y) {
+var currentScreen = document.getElementById("start-screen");
+
+function fadeInLine(x, y) {
     drawGrid();
 
 
 }
 
-function confirmSelection() {
 
-}
 
 function printOutLines() {
 
@@ -463,6 +463,13 @@ function endGame() {
         document.getElementById("turn-display").innerHTML = "Tie!";
     }
 
+}
+
+function changeTextScreen(viewID){
+    var newScreen = document.getElementById(viewID)
+    currentScreen.style.display = "none"
+    newScreen.style.display = "initial"
+    currentScreen = newScreen;
 }
 
 squareCount = (Math.floor(canvas.width / gridSpacing) - 1) * (Math.floor(canvas.height / gridSpacing) - 1);
