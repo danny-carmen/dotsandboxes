@@ -42,7 +42,7 @@ canvas{
 
 .start-screen{
     order: 1;
-    display: initial;
+    display: flex;
 }
 
 .text-container{

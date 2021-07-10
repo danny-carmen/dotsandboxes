@@ -468,7 +468,7 @@ function endGame() {
 function changeTextScreen(viewID){
     var newScreen = document.getElementById(viewID)
     currentScreen.style.display = "none"
-    newScreen.style.display = "initial"
+    newScreen.style.display = "flex"
     currentScreen = newScreen;
 }
 
