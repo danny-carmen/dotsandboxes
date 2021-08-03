@@ -1,73 +1,74 @@
-
-
-html{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 100;
+html {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
 }
 
-h1{
-    font-size: 60px;
-    cursor: pointer;
+h1 {
+  font-size: 60px;
+  cursor: pointer;
 }
 
-canvas{
-    border: 1px solid black;
-    box-shadow: black ;
-    
+canvas {
+  border: 1px solid black;
+  box-shadow: black;
 }
 
-.scoreboard{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100vw;
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
 }
 
-.container{
-    width: 100vw;
-    height: 100vh;
-
+.container {
+  width: 100vw;
+  height: 100vh;
 }
 
-.text-screen{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
+.text-screen {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.start-screen{
-    order: 1;
-    display: flex;
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-.text-container{
-    background-color: rgba(255, 255, 255, .75);
-    width: 100vw;
-    height: 100vh;
-    display: initial;
+.start-screen {
+  order: 1;
+  display: flex;
 }
 
-.instruction-screen{
-    display: none;
+.text-container {
+  background-color: rgba(255, 255, 255, 0.75);
+  width: 100vw;
+  height: 100vh;
+  display: initial;
 }
 
-.setup-screen{
-    display: none;
+.instruction-screen {
+  display: none;
 }
 
-.win-screen{
-    display: none;
+.setup-screen {
+  display: none;
 }
 
-.fade-out{
+.win-screen {
+  display: none;
+}
+
+/* .fade-out{
 
 }
 
 .fade-in{
     
-}
+} */
