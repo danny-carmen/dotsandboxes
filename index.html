@@ -13,18 +13,62 @@
     <div class="container">
       <div class="text-container text-screen" id="text-container">
         <div class="start-screen text-screen" id="start-screen">
-          <h1 class="new-game" onclick="changeTextScreen('setup-screen')">
+          <h1 class="new-game" onclick="changeTextScreen('setup-screen', 750)">
             NEW GAME
           </h1>
-          <h1 onclick="changeTextScreen('instruction-screen')">INSTRUCTIONS</h1>
+          <h1 onclick="changeTextScreen('instruction-screen', 750)">
+            INSTRUCTIONS
+          </h1>
         </div>
         <div class="instruction-screen text-screen" id="instruction-screen">
           <h1>INSTRUCTIONS</h1>
           <p>Instructons go here</p>
-          <h1 onclick="changeTextScreen('start-screen')">Return</h1>
+          <h1 onclick="changeTextScreen('start-screen', 750)">Return</h1>
         </div>
         <div class="setup-screen text-screen" id="setup-screen">
-          <h1>Setup stuff here</h1>
+          <div class="player-selections">
+            <div class="player-selection">
+              <div class="player-selection-name">
+                <input
+                  class="name-input"
+                  type="text"
+                  placeholder="Player 1 Name"
+                />
+              </div>
+
+              <div
+                class="player-selection-colors"
+                id="player-1-color-selection"
+              >
+                <div class="red color-box color-box-selected"></div>
+                <div class="orange color-box"></div>
+                <div class="yellow color-box"></div>
+                <div class="green color-box"></div>
+                <div class="blue color-box"></div>
+                <div class="purple color-box"></div>
+              </div>
+            </div>
+            <div class="player-selection">
+              <div class="player-selection-name">
+                <input
+                  class="name-input"
+                  type="text"
+                  placeholder="Player 2 Name"
+                />
+              </div>
+              <div
+                class="player-selection-colors"
+                id="player-2-color-selection"
+              >
+                <div class="red color-box"></div>
+                <div class="orange color-box color-box-selected"></div>
+                <div class="yellow color-box"></div>
+                <div class="green color-box"></div>
+                <div class="blue color-box"></div>
+                <div class="purple color-box"></div>
+              </div>
+            </div>
+          </div>
           <h1 onclick="startGame()">START GAME</h1>
         </div>
         <div class="win-screen text-screen">
@@ -57,7 +101,7 @@
           </div>
         </div>
         <div class="canvas-container">
-          <canvas width="500px" height="500px" id="canvas" />
+          <canvas id="canvas" />
         </div>
       </div>
     </div>

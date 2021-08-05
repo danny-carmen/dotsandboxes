@@ -37,10 +37,36 @@ var activePlayerColor = player1Color;
 
 canvas.addEventListener("mousedown", doMouseDown, false);
 
+let colorBoxes = document.querySelectorAll(".color-box");
+
+colorBoxes.forEach((colorBox) => {
+  colorBox.addEventListener("click", setPlayerColors);
+});
+
+function setPlayerColors() {
+  const colorBoxes = this.parentElement.querySelectorAll(".color-box");
+
+  colorBoxes.forEach((colorBox) => {
+    if (colorBox.classList.contains("color-box-selected")) {
+      colorBox.classList.toggle("color-box-selected");
+    }
+  });
+
+  this.classList.toggle("color-box-selected");
+  let color = this.style.backgroundColor;
+  if (this.parentElement.id === "player-1-color-selection") {
+    player1Color = color;
+  } else {
+    player2Color = color;
+  }
+}
+
 var currentScreen = document.getElementById("start-screen");
 
 function fadeInLine(x, y) {
-  drawGrid();
+  let redraw = setInterval(() => {
+    drawGrid();
+  });
 }
 
 function printOutLines() {
@@ -413,16 +439,27 @@ function endGame() {
   }
 }
 
-function changeTextScreen(viewID) {
+function changeTextScreen(viewID, duration) {
   var newScreen = document.getElementById(viewID);
-  currentScreen.style.display = "none";
+
   newScreen.style.display = "flex";
-  currentScreen = newScreen;
+
+  currentScreen.style.opacity = 0;
+
+  setTimeout(() => {
+    currentScreen.style.display = "none";
+    newScreen.style.opacity = 1;
+    currentScreen = newScreen;
+  }, duration);
 }
 
 function startGame() {
-  currentScreen.style.display = "none";
-  document.getElementById("text-container").style.display = "none";
+  currentScreen.style.opacity = 0;
+  setTimeout(() => {
+    currentScreen.style.display = "none";
+    document.getElementById("text-container").style.display = "none";
+    canvas.style.opacity = 1;
+  }, 750);
 }
 
 squareCount =

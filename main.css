@@ -9,8 +9,9 @@ h1 {
 }
 
 canvas {
-  border: 1px solid black;
-  box-shadow: black;
+  box-shadow: 0px 0px 15px 0px #adadad;
+  opacity: 0;
+  transition: opacity 0.75s;
 }
 
 .scoreboard {
@@ -33,6 +34,7 @@ canvas {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  transition: opacity 0.75s;
 }
 
 .canvas-container {
@@ -44,6 +46,93 @@ canvas {
 .start-screen {
   order: 1;
   display: flex;
+  opacity: 1;
+}
+
+.player-selection-colors {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.player-selections {
+  width: 40%;
+}
+
+.player-selection {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.player-selection-name {
+  width: 100%;
+  height: 30px;
+}
+
+.player-selection-name > input {
+  border: none;
+  border-bottom: 1px solid gray;
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  transition: box-shadow 0.25s ease-in-out;
+}
+
+.player-selection-name > input::placeholder {
+  color: lightgray;
+}
+
+.player-selection-name > input:focus {
+  box-shadow: 0px 0px 15px 0px #adadad;
+  outline: none;
+}
+
+.color-box {
+  width: 25px;
+  height: 25px;
+  padding: 10px;
+  border: 4px solid #d3d3d3;
+  border-radius: 5px;
+}
+
+.color-box-selected {
+  border: 4px solid #000000;
+}
+
+.color-box:hover {
+  border: 4px solid gray;
+}
+
+.color-box-selected:hover {
+  border: 4px solid black;
+}
+
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.purple {
+  background-color: purple;
 }
 
 .text-container {
@@ -55,20 +144,15 @@ canvas {
 
 .instruction-screen {
   display: none;
+  opacity: 0;
 }
 
 .setup-screen {
   display: none;
+  opacity: 0;
 }
 
 .win-screen {
   display: none;
+  opacity: 0;
 }
-
-/* .fade-out{
-
-}
-
-.fade-in{
-    
-} */
