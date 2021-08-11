@@ -30,6 +30,7 @@
             <div class="player-selection">
               <div class="player-selection-name">
                 <input
+                  id="player-1-name-field"
                   class="name-input"
                   type="text"
                   placeholder="Player 1 Name"
@@ -41,7 +42,7 @@
                 id="player-1-color-selection"
               >
                 <div class="red color-box color-box-selected"></div>
-                <div class="orange color-box"></div>
+                <div class="orange color-box crossed-out-color"></div>
                 <div class="yellow color-box"></div>
                 <div class="green color-box"></div>
                 <div class="blue color-box"></div>
@@ -51,6 +52,7 @@
             <div class="player-selection">
               <div class="player-selection-name">
                 <input
+                  id="player-2-name-field"
                   class="name-input"
                   type="text"
                   placeholder="Player 2 Name"
@@ -60,7 +62,7 @@
                 class="player-selection-colors"
                 id="player-2-color-selection"
               >
-                <div class="red color-box"></div>
+                <div class="red color-box crossed-out-color"></div>
                 <div class="orange color-box color-box-selected"></div>
                 <div class="yellow color-box"></div>
                 <div class="green color-box"></div>
@@ -68,6 +70,33 @@
                 <div class="purple color-box"></div>
               </div>
             </div>
+          </div>
+          <div class="board-size">
+            <div class="dimension-selection-wrapper">Rows</div>
+            <select class="dimension-selection" id="width-selection">
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+
+            <div class="dimension-selection-wrapper">Columns</div>
+            <select class="dimension-selection" id="height-selection">
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
           </div>
           <h1 onclick="startGame()">START GAME</h1>
         </div>
@@ -89,14 +118,14 @@
       <div class="game-board">
         <div class="scoreboard">
           <div class="player-score">
-            <p>Player 1</p>
+            <p id="player-1-name">Player 1</p>
             <p id="player1-score">0</p>
           </div>
           <div class="center">
             <p id="turn-display">Player 1 Turn</p>
           </div>
           <div class="player-score">
-            <p>Player 2</p>
+            <p id="player-2-name">Player 2</p>
             <p id="player2-score">0</p>
           </div>
         </div>

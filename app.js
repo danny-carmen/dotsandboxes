@@ -22,6 +22,8 @@ var squareCount = 0;
 var clickTolerance = 6;
 let confirmedLines = [];
 let currentLineSelection = [];
+let boardRows = 2;
+let boardColumns = 2;
 var gridSpacing = 36;
 let player1Boxes = [];
 let player2Boxes = [];
@@ -31,9 +33,12 @@ var topBorder = 36;
 var rightBorder = 564;
 var bottomBorder = 764;
 var leftBorder = 36;
-var player1Color = "rgba(255, 0, 0, 1)";
-var player2Color = "rgba(0, 0, 255, 1)";
+var player1Color = "#ff0000";
+var player2Color = "#ffa500";
+let player1Name = "Player 1";
+let player2Name = "Player 2";
 var activePlayerColor = player1Color;
+let clickActive = true;
 
 canvas.addEventListener("mousedown", doMouseDown, false);
 
@@ -44,20 +49,48 @@ colorBoxes.forEach((colorBox) => {
 });
 
 function setPlayerColors() {
-  const colorBoxes = this.parentElement.querySelectorAll(".color-box");
+  if (!this.classList.contains("crossed-out-color")) {
+    const colorBoxes = this.parentElement.querySelectorAll(".color-box");
 
-  colorBoxes.forEach((colorBox) => {
-    if (colorBox.classList.contains("color-box-selected")) {
-      colorBox.classList.toggle("color-box-selected");
+    colorBoxes.forEach((colorBox) => {
+      if (colorBox.classList.contains("color-box-selected")) {
+        colorBox.classList.toggle("color-box-selected");
+      }
+    });
+
+    if (this.parentElement.id === "player-1-color-selection") {
+      let player2ColorSelections = document.querySelector(
+        "#player-2-color-selection"
+      );
+
+      player2ColorSelections
+        .querySelector(".crossed-out-color")
+        .classList.toggle("crossed-out-color");
+      player2ColorSelections
+        .querySelector(`.${this.classList[0]}`)
+        .classList.toggle("crossed-out-color");
+    } else {
+      let player1ColorSelections = document.querySelector(
+        "#player-1-color-selection"
+      );
+
+      player1ColorSelections
+        .querySelector(".crossed-out-color")
+        .classList.toggle("crossed-out-color");
+
+      player1ColorSelections
+        .querySelector(`.${this.classList[0]}`)
+        .classList.toggle("crossed-out-color");
     }
-  });
 
-  this.classList.toggle("color-box-selected");
-  let color = this.style.backgroundColor;
-  if (this.parentElement.id === "player-1-color-selection") {
-    player1Color = color;
-  } else {
-    player2Color = color;
+    this.classList.toggle("color-box-selected");
+
+    let color = window.getComputedStyle(this).backgroundColor;
+    if (this.parentElement.id === "player-1-color-selection") {
+      player1Color = color;
+    } else {
+      player2Color = color;
+    }
   }
 }
 
@@ -91,11 +124,11 @@ function isLineClicked(x, y) {
 
 function changePlayerTurn() {
   if (isPlayer1sTurn) {
-    document.getElementById("turn-display").innerHTML = "Player 2 Turn";
+    document.getElementById("turn-display").innerHTML = `${player2Name}'s Turn`;
     activePlayerColor = player2Color;
     isPlayer1sTurn = false;
   } else {
-    document.getElementById("turn-display").innerHTML = "Player 1 Turn";
+    document.getElementById("turn-display").innerHTML = `${player1Name}'s Turn`;
     activePlayerColor = player1Color;
     isPlayer1sTurn = true;
   }
@@ -270,10 +303,6 @@ function checkSquares(x, y) {
       drawSquare(square1Coord[0], square1Coord[1]);
       boxCompleted = true;
       increaseScore(square1Coord[0], square1Coord[1]);
-
-      if (player1Boxes.length + player2Boxes.length == squareCount) {
-        endGame();
-      }
     }
   }
 
@@ -282,11 +311,11 @@ function checkSquares(x, y) {
       drawSquare(square2Coord[0], square2Coord[1]);
       boxCompleted = true;
       increaseScore(square1Coord[0], square1Coord[1]);
-
-      if (player1Boxes.length + player2Boxes.length == squareCount) {
-        endGame();
-      }
     }
+  }
+
+  if (player1Boxes.length + player2Boxes.length == squareCount) {
+    endGame();
   }
 
   return boxCompleted;
@@ -334,52 +363,54 @@ function drawHorizontalLine(x, y) {
 }
 
 function doMouseDown(e) {
-  let rect = canvas.getBoundingClientRect();
-  // var canvas_x = e.clientX - canvas.offsetLeft;
-  // var canvas_y = e.clientY - canvas.offsetTop;
+  if (clickActive) {
+    let rect = canvas.getBoundingClientRect();
+    // var canvas_x = e.clientX - canvas.offsetLeft;
+    // var canvas_y = e.clientY - canvas.offsetTop;
 
-  var canvas_x = e.clientX - rect.left;
-  var canvas_y = e.clientY - rect.top;
+    var canvas_x = e.clientX - rect.left;
+    var canvas_y = e.clientY - rect.top;
 
-  // var canvas_x = e.pageX;
-  // var canvas_y = e.pageY;
+    // var canvas_x = e.pageX;
+    // var canvas_y = e.pageY;
 
-  var clickXOnGrid = false;
-  var clickYOnGrid = false;
-  var lineIsClicked = false;
-  // horizontal check
-  var boxCompleted = false;
+    var clickXOnGrid = false;
+    var clickYOnGrid = false;
+    var lineIsClicked = false;
+    // horizontal check
+    var boxCompleted = false;
 
-  if (
-    canvas_x % gridSpacing <= clickTolerance ||
-    canvas_x % gridSpacing >= gridSpacing - clickTolerance
-  ) {
-    clickXOnGrid = true;
-  }
-  if (
-    canvas_y % gridSpacing <= clickTolerance ||
-    canvas_y % gridSpacing >= gridSpacing - clickTolerance
-  ) {
-    clickYOnGrid = true;
-  }
+    if (
+      canvas_x % gridSpacing <= clickTolerance ||
+      canvas_x % gridSpacing >= gridSpacing - clickTolerance
+    ) {
+      clickXOnGrid = true;
+    }
+    if (
+      canvas_y % gridSpacing <= clickTolerance ||
+      canvas_y % gridSpacing >= gridSpacing - clickTolerance
+    ) {
+      clickYOnGrid = true;
+    }
 
-  if (
-    !lineIsClicked &&
-    clickXOnGrid &&
-    !clickYOnGrid &&
-    canvas_y >= gridSpacing - clickTolerance
-  ) {
-    var lineCenter = findCenterOfLine(canvas_x, canvas_y, true);
+    if (
+      !lineIsClicked &&
+      clickXOnGrid &&
+      !clickYOnGrid &&
+      canvas_y >= gridSpacing - clickTolerance
+    ) {
+      var lineCenter = findCenterOfLine(canvas_x, canvas_y, true);
 
-    if (!isLineClicked(lineCenter[0], lineCenter[1])) {
-      drawVerticalLine(lineCenter[0], lineCenter[1]);
-      confirmedLines.push(lineCenter);
-      boxCompleted = checkSquares(lineCenter[0], lineCenter[1]);
+      if (!isLineClicked(lineCenter[0], lineCenter[1])) {
+        drawVerticalLine(lineCenter[0], lineCenter[1]);
+        confirmedLines.push(lineCenter);
+        boxCompleted = checkSquares(lineCenter[0], lineCenter[1]);
 
-      // printOutLines();
+        // printOutLines();
 
-      if (!boxCompleted) {
-        changePlayerTurn();
+        if (!boxCompleted) {
+          changePlayerTurn();
+        }
       }
     }
   }
@@ -421,6 +452,7 @@ function drawGridDiamond(x, y, size) {
 
 function drawGrid() {
   var i;
+
   for (i = gridSpacing; i < canvas.height; i += gridSpacing) {
     var j;
     for (j = gridSpacing; j < canvas.width; j += gridSpacing) {
@@ -431,9 +463,9 @@ function drawGrid() {
 
 function endGame() {
   if (player1Boxes.length > player2Boxes.length) {
-    document.getElementById("turn-display").innerHTML = "Player 1 Wins";
+    document.getElementById("turn-display").innerHTML = `${player1Name} Wins`;
   } else if (player2Boxes.length > player1Boxes.length) {
-    document.getElementById("turn-display").innerHTML = "Player 2 Wins";
+    document.getElementById("turn-display").innerHTML = `${player1Name} Wins`;
   } else {
     document.getElementById("turn-display").innerHTML = "Tie!";
   }
@@ -454,6 +486,28 @@ function changeTextScreen(viewID, duration) {
 }
 
 function startGame() {
+  player1Name = document.getElementById("player-1-name-field").value;
+  player2Name = document.getElementById("player-2-name-field").value;
+
+  let widthSelection = document.getElementById("width-selection");
+  boardColumns = parseInt(
+    widthSelection.options[widthSelection.selectedIndex].text
+  );
+  let heightSelection = document.getElementById("height-selection");
+  boardRows = parseInt(
+    heightSelection.options[heightSelection.selectedIndex].text
+  );
+
+  squareCount = boardColumns * boardRows;
+
+  //set player names
+
+  document.getElementById("player-1-name").innerHTML = player1Name;
+  document.getElementById("player-2-name").innerHTML = player2Name;
+
+  canvas.width = (boardColumns + 2) * gridSpacing;
+  canvas.height = (boardRows + 2) * gridSpacing;
+  drawGrid();
   currentScreen.style.opacity = 0;
   setTimeout(() => {
     currentScreen.style.display = "none";
@@ -467,4 +521,4 @@ squareCount =
   (Math.floor(canvas.height / gridSpacing) - 1);
 
 console.log("Square Count: " + squareCount);
-drawGrid();
+// drawGrid();

@@ -111,6 +111,30 @@ canvas {
   border: 4px solid black;
 }
 
+.crossed-out-color {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><path d='M100 0 L0 100 ' stroke='gray' stroke-width='2'/><path d='M0 0 L100 100 ' stroke='gray' stroke-width='2'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%, auto;
+}
+
+.dimension-selection {
+  border: none;
+  border-bottom: 2px solid lightgray;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.dimension-selection:focus {
+  outline: none;
+}
+
+.board-size {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+
 .red {
   background-color: red;
 }
