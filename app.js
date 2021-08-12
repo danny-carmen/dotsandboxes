@@ -14,39 +14,214 @@
 //redo vars to let and const
 //triple equals also
 
-var isPlayer1sTurn = true;
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var diamondSize = 4;
-var squareCount = 0;
-var clickTolerance = 6;
-let confirmedLines = [];
-let currentLineSelection = [];
-let boardRows = 2;
-let boardColumns = 2;
-var gridSpacing = 36;
-let player1Boxes = [];
-let player2Boxes = [];
-var player1Score = 0;
-var player2Score = 0;
-var topBorder = 36;
-var rightBorder = 564;
-var bottomBorder = 764;
-var leftBorder = 36;
-var player1Color = "#ff0000";
-var player2Color = "#ffa500";
-let player1Name = "Player 1";
-let player2Name = "Player 2";
-var activePlayerColor = player1Color;
-let clickActive = true;
+function stateClosure() {
+  let isPlayer1sTurn = true;
+  let canvas = document.getElementById("canvas");
+  // let ctx = canvas.getContext("2d");
+  let diamondSize = 4;
+  let squareCount = 0;
+  let clickTolerance = 6;
+  let confirmedLines = [];
+  let boardRows = 2;
+  let boardColumns = 2;
+  let gridSpacing = 36;
+  let player1Boxes = [];
+  let player2Boxes = [];
+  let player1Score = 0;
+  let player2Score = 0;
+  let topBorder = 36; //can these just be calculated?
+  let rightBorder = 564;
+  let bottomBorder = 764;
+  let leftBorder = 36;
+  let player1Color = "#ff0000";
+  let player2Color = "#ffa500";
+  let player1Name = "Player 1";
+  let player2Name = "Player 2";
+  let activePlayerColor = player1Color; //can this be based on turn boolean?
+  let clickActive = true;
+  let currentScreen = document.getElementById("start-screen");
 
-canvas.addEventListener("mousedown", doMouseDown, false);
+  return {
+    getIsPlayer1sTurn() {
+      return isPlayer1sTurn;
+    },
 
-let colorBoxes = document.querySelectorAll(".color-box");
+    setIsPlayer1sTurn(newValue) {
+      isPlayer1sTurn = newValue;
+    },
 
-colorBoxes.forEach((colorBox) => {
-  colorBox.addEventListener("click", setPlayerColors);
-});
+    getCanvas() {
+      return canvas;
+    },
+
+    getDiamondSize() {
+      return diamondSize;
+    },
+
+    getSquareCount() {
+      return squareCount;
+    },
+
+    setSquareCount(newValue) {
+      squareCount = newValue;
+    },
+
+    getClickTolerance() {
+      return clickTolerance;
+    },
+
+    getConfirmedLines() {
+      return confirmedLines;
+    },
+
+    setConfirmedLines(newArray) {
+      confirmedLines = newArray;
+    },
+
+    getBoardRows() {
+      return boardRows;
+    },
+
+    setBoardRows(newValue) {
+      boardRows = newValue;
+    },
+
+    getBoardsColumns() {
+      return boardColumns;
+    },
+
+    setBoardColumns(newValue) {
+      boardColumns = newValue;
+    },
+
+    getGridSpacing() {
+      return gridSpacing;
+    },
+
+    getPlayer1Boxes() {
+      return player1Boxes;
+    },
+
+    setPlayer1Boxes(newArray) {
+      player1Boxes = newArray;
+    },
+
+    getPlayer2Boxes() {
+      return player2Boxes;
+    },
+
+    setPlayer2Boxes(newArray) {
+      player2Boxes = newArray;
+    },
+
+    getPlayer1Score() {
+      return player1Score;
+    },
+
+    setPlayer1Score(newValue) {
+      player1Score = newValue;
+    },
+
+    getPlayer2Score() {
+      return player2Score;
+    },
+
+    setPlayer2Score(newValue) {
+      player2Score = newValue;
+    },
+
+    getPlayer1Name() {
+      return player1Name;
+    },
+
+    setPlayer1Name(newValue) {
+      player1Name = newValue;
+    },
+
+    getPlayer2Name() {
+      return player2Name;
+    },
+
+    setPlayer2Name(newValue) {
+      player2Name = newValue;
+    },
+
+    getPlayer1Color() {
+      return player1Color;
+    },
+
+    setPlayer1Color(newValue) {
+      player1Color = newValue;
+    },
+
+    getPlayer2Color() {
+      return player2Color;
+    },
+
+    setPlayer2Color(newValue) {
+      player2Color = newValue;
+    },
+
+    getClickActive() {
+      return clickActive;
+    },
+
+    setClickActive(newValue) {
+      clickActive = newValue;
+    },
+
+    getCurrentScreen() {
+      return currentScreen;
+    },
+
+    setCurrentScreen(newValue) {
+      currentScreen = newValue;
+    },
+  };
+}
+
+// var isPlayer1sTurn = true;
+// var canvas = document.getElementById("canvas");
+// var ctx = canvas.getContext("2d");
+// var diamondSize = 4;
+// var squareCount = 0;
+// var clickTolerance = 6;
+// let confirmedLines = [];
+// let currentLineSelection = [];
+// let boardRows = 2;
+// let boardColumns = 2;
+// var gridSpacing = 36;
+// let player1Boxes = [];
+// let player2Boxes = [];
+// var player1Score = 0;
+// var player2Score = 0;
+// var topBorder = 36;
+// var rightBorder = 564;
+// var bottomBorder = 764;
+// var leftBorder = 36;
+// var player1Color = "#ff0000";
+// var player2Color = "#ffa500";
+// let player1Name = "Player 1";
+// let player2Name = "Player 2";
+// var activePlayerColor = player1Color;
+// let clickActive = true;
+
+function startUpFunctions() {
+  const currentState = stateClosure();
+
+  currentState.getCanvas.addEventListener("mousedown", doMouseDown, false);
+  // canvas.addEventListener("mousedown", doMouseDown, false);
+
+  let colorBoxes = document.querySelectorAll(".color-box");
+
+  colorBoxes.forEach((colorBox) => {
+    colorBox.addEventListener("click", setPlayerColors);
+  });
+
+  // squareCount =
+  //   (Math.floor(canvas.width / gridSpacing) - 1) *
+  //   (Math.floor(canvas.height / gridSpacing) - 1);
+}
 
 function setPlayerColors() {
   if (!this.classList.contains("crossed-out-color")) {
@@ -94,8 +269,6 @@ function setPlayerColors() {
   }
 }
 
-var currentScreen = document.getElementById("start-screen");
-
 function fadeInLine(x, y) {
   let redraw = setInterval(() => {
     drawGrid();
@@ -109,11 +282,11 @@ function printOutLines() {
 }
 
 function isLineClicked(x, y) {
-  var lineClicked = false;
+  let lineClicked = false;
 
   confirmedLines.forEach((line) => {
-    if (line[0] == x) {
-      if (line[1] == y) {
+    if (line[0] === x) {
+      if (line[1] === y) {
         lineClicked = true;
       }
     }
@@ -135,10 +308,10 @@ function changePlayerTurn() {
 }
 
 function findCenterOfLine(x, y, isVertical) {
-  var gridX = 0;
-  var gridY = 0;
+  let gridX = 0;
+  let gridY = 0;
   if (isVertical) {
-    if (x % gridSpacing == 0) {
+    if (x % gridSpacing === 0) {
       gridX = x;
     } else if (x % gridSpacing <= clickTolerance && x > gridSpacing) {
       gridX = x - (x % gridSpacing);
@@ -148,7 +321,7 @@ function findCenterOfLine(x, y, isVertical) {
 
     gridY = y - (y % gridSpacing) + gridSpacing / 2;
   } else {
-    if (y % gridSpacing == 0) {
+    if (y % gridSpacing === 0) {
       gridY = y;
     } else if (y % gridSpacing < clickTolerance && y > gridSpacing) {
       gridY = y - (y % gridSpacing);
@@ -168,11 +341,11 @@ function checkSquareOutline(x, y) {
   let line3 = [];
   let line4 = [];
 
-  var line1Exists = false;
-  var line2Exists = false;
-  var line3Exists = false;
-  var line4Exists = false;
-  var breakpoint = false;
+  let line1Exists = false;
+  let line2Exists = false;
+  let line3Exists = false;
+  let line4Exists = false;
+  let breakpoint = false;
 
   line1.push(x);
   line1.push(y - gridSpacing / 2);
@@ -190,8 +363,8 @@ function checkSquareOutline(x, y) {
     let line = [];
     line = confirmedLines[i];
 
-    if (line[0] == line1[0]) {
-      if (line[1] == line1[1]) {
+    if (line[0] === line1[0]) {
+      if (line[1] === line1[1]) {
         line1Exists = true;
 
         i = confirmedLines.length;
@@ -204,8 +377,8 @@ function checkSquareOutline(x, y) {
       let line = [];
       line = confirmedLines[i];
 
-      if (line[0] == line2[0]) {
-        if (line[1] == line2[1]) {
+      if (line[0] === line2[0]) {
+        if (line[1] === line2[1]) {
           line2Exists = true;
 
           i = confirmedLines.length;
@@ -218,8 +391,8 @@ function checkSquareOutline(x, y) {
         let line = [];
         line = confirmedLines[i];
 
-        if (line[0] == line3[0]) {
-          if (line[1] == line3[1]) {
+        if (line[0] === line3[0]) {
+          if (line[1] === line3[1]) {
             line3Exists = true;
 
             i = confirmedLines.length;
@@ -233,8 +406,8 @@ function checkSquareOutline(x, y) {
         let line = [];
         line = confirmedLines[i];
 
-        if (line[0] == line4[0]) {
-          if (line[1] == line4[1]) {
+        if (line[0] === line4[0]) {
+          if (line[1] === line4[1]) {
             line4Exists = true;
 
             i = confirmedLines.length;
@@ -251,7 +424,7 @@ function checkSquareOutline(x, y) {
 }
 
 function increaseScore(x, y) {
-  var currentScore;
+  let currentScore;
   let boxCoordinates = [];
   boxCoordinates.push(x);
   boxCoordinates.push(y);
@@ -273,9 +446,9 @@ function checkSquares(x, y) {
   let square1Coord = [];
   let square2Coord = [];
 
-  var boxCompleted = false;
+  let boxCompleted = false;
 
-  if (x % gridSpacing == 0) {
+  if (x % gridSpacing === 0) {
     if (x - gridSpacing / 2 > leftBorder) {
       square1Coord.push(x - gridSpacing / 2);
       square1Coord.push(y);
@@ -306,7 +479,7 @@ function checkSquares(x, y) {
     }
   }
 
-  if (square2Coord[0] != null) {
+  if (square2Coord[0] !== null) {
     if (checkSquareOutline(square2Coord[0], square2Coord[1])) {
       drawSquare(square2Coord[0], square2Coord[1]);
       boxCompleted = true;
@@ -314,7 +487,7 @@ function checkSquares(x, y) {
     }
   }
 
-  if (player1Boxes.length + player2Boxes.length == squareCount) {
+  if (player1Boxes.length + player2Boxes.length === squareCount) {
     endGame();
   }
 
@@ -322,18 +495,18 @@ function checkSquares(x, y) {
 }
 
 function drawSquare(x, y) {
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
-  var square = new Path2D();
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext("2d");
+  let square = new Path2D();
   square.rect(x - 14, y - 14, 28, 28);
   ctx.fillStyle = activePlayerColor;
   ctx.fill(square);
 }
 
 function drawVerticalLine(x, y) {
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
-  var verticalLine = new Path2D();
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext("2d");
+  let verticalLine = new Path2D();
 
   verticalLine.moveTo(x, y - gridSpacing / 2 - diamondSize);
   verticalLine.lineTo(x + diamondSize, y - gridSpacing / 2);
@@ -347,9 +520,9 @@ function drawVerticalLine(x, y) {
 }
 
 function drawHorizontalLine(x, y) {
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
-  var horizontalLine = new Path2D();
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext("2d");
+  let horizontalLine = new Path2D();
 
   horizontalLine.moveTo(x - gridSpacing / 2 - diamondSize, y);
   horizontalLine.lineTo(x - gridSpacing / 2, y - diamondSize);
@@ -368,15 +541,15 @@ function doMouseDown(e) {
     // var canvas_x = e.clientX - canvas.offsetLeft;
     // var canvas_y = e.clientY - canvas.offsetTop;
 
-    var canvas_x = e.clientX - rect.left;
-    var canvas_y = e.clientY - rect.top;
+    let canvas_x = e.clientX - rect.left;
+    let canvas_y = e.clientY - rect.top;
 
     // var canvas_x = e.pageX;
     // var canvas_y = e.pageY;
 
-    var clickXOnGrid = false;
-    var clickYOnGrid = false;
-    var lineIsClicked = false;
+    let clickXOnGrid = false;
+    let clickYOnGrid = false;
+    let lineIsClicked = false;
     // horizontal check
     var boxCompleted = false;
 
@@ -399,7 +572,7 @@ function doMouseDown(e) {
       !clickYOnGrid &&
       canvas_y >= gridSpacing - clickTolerance
     ) {
-      var lineCenter = findCenterOfLine(canvas_x, canvas_y, true);
+      let lineCenter = findCenterOfLine(canvas_x, canvas_y, true);
 
       if (!isLineClicked(lineCenter[0], lineCenter[1])) {
         drawVerticalLine(lineCenter[0], lineCenter[1]);
@@ -421,7 +594,7 @@ function doMouseDown(e) {
     !clickXOnGrid &&
     canvas_x >= gridSpacing - clickTolerance
   ) {
-    var lineCenter = findCenterOfLine(canvas_x, canvas_y, false);
+    let lineCenter = findCenterOfLine(canvas_x, canvas_y, false);
 
     if (!isLineClicked(lineCenter[0], lineCenter[1])) {
       drawHorizontalLine(lineCenter[0], lineCenter[1]);
@@ -438,9 +611,9 @@ function doMouseDown(e) {
 }
 
 function drawGridDiamond(x, y, size) {
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
-  var diamond = new Path2D();
+  let canvas = stateClosure.getCanvas();
+  let ctx = canvas.getContext("2d");
+  let diamond = new Path2D();
 
   diamond.moveTo(x, y - size);
   diamond.lineTo(x + size, y);
@@ -451,10 +624,10 @@ function drawGridDiamond(x, y, size) {
 }
 
 function drawGrid() {
-  var i;
-
+  let i;
+  let gridSpacing = stateClosure.getGridSpacing();
   for (i = gridSpacing; i < canvas.height; i += gridSpacing) {
-    var j;
+    let j;
     for (j = gridSpacing; j < canvas.width; j += gridSpacing) {
       drawGridDiamond(j, i, diamondSize);
     }
@@ -462,7 +635,10 @@ function drawGrid() {
 }
 
 function endGame() {
-  if (player1Boxes.length > player2Boxes.length) {
+  if (
+    stateClosure.getPlayer1Boxes().length >
+    stateClosure.getPlayer2Boxes().length
+  ) {
     document.getElementById("turn-display").innerHTML = `${player1Name} Wins`;
   } else if (player2Boxes.length > player1Boxes.length) {
     document.getElementById("turn-display").innerHTML = `${player1Name} Wins`;
@@ -472,41 +648,45 @@ function endGame() {
 }
 
 function changeTextScreen(viewID, duration) {
-  var newScreen = document.getElementById(viewID);
+  let newScreen = document.getElementById(viewID);
 
   newScreen.style.display = "flex";
 
-  currentScreen.style.opacity = 0;
+  stateClosure.getCurrentScreen().style.opacity = 0;
 
   setTimeout(() => {
-    currentScreen.style.display = "none";
+    stateClosure.getCurrentScreen().style.display = "none";
     newScreen.style.opacity = 1;
-    currentScreen = newScreen;
+    stateClosure.setCurrentScreen(newScreen);
   }, duration);
 }
 
 function startGame() {
-  player1Name = document.getElementById("player-1-name-field").value;
-  player2Name = document.getElementById("player-2-name-field").value;
-
-  let widthSelection = document.getElementById("width-selection");
-  boardColumns = parseInt(
-    widthSelection.options[widthSelection.selectedIndex].text
+  //get info from setup screen, down to
+  stateClosure.setPlayer1Name(
+    document.getElementById("player-1-name-field").value
   );
-  let heightSelection = document.getElementById("height-selection");
-  boardRows = parseInt(
-    heightSelection.options[heightSelection.selectedIndex].text
+  stateClosure.setPlayer2Name(
+    document.getElementById("player-2-name-field").value
   );
 
-  squareCount = boardColumns * boardRows;
+  let columnSelection = document.getElementById("column-selection");
+  stateClosure.setBoardColumns(
+    parseInt(columnSelection.options[columnSelection.selectedIndex].text)
+  );
+  let rowSelection = document.getElementById("row-selection");
+  stateClosure.setBoardRows(
+    parseInt(rowSelection.options[rowSelection.selectedIndex].text)
+  );
 
-  //set player names
+  stateClosure.setSquareCount(boardColumns * boardRows);
+  //createboard
 
   document.getElementById("player-1-name").innerHTML = player1Name;
   document.getElementById("player-2-name").innerHTML = player2Name;
 
-  canvas.width = (boardColumns + 2) * gridSpacing;
-  canvas.height = (boardRows + 2) * gridSpacing;
+  canvas.width = (stateClosure.getBoardColumns() + 2) * gridSpacing;
+  canvas.height = (stateClosure.getBoardRows() + 2) * gridSpacing;
   drawGrid();
   currentScreen.style.opacity = 0;
   setTimeout(() => {
@@ -516,9 +696,6 @@ function startGame() {
   }, 750);
 }
 
-squareCount =
-  (Math.floor(canvas.width / gridSpacing) - 1) *
-  (Math.floor(canvas.height / gridSpacing) - 1);
+startUpFunctions();
 
-console.log("Square Count: " + squareCount);
 // drawGrid();
